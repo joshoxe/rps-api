@@ -6,6 +6,12 @@ terraform {
     }
   }
 
+  backend "s3" {
+    bucket = aws_s3_bucket.lambda_bucket.name
+    key    = "tf.tfstate"
+    region = var.region
+  }
+
   required_version = "~> 1.0"
 }
 

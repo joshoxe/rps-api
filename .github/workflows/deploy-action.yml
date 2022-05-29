@@ -46,5 +46,5 @@ jobs:
           AWS_DEFAULT_REGION: eu-west-2
         id: apply
         working-directory: ./deployment
-        run: terraform apply
+        run: terraform apply -auto-approve
 

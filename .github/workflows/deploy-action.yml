@@ -38,4 +38,9 @@ jobs:
         id: plan
         working-directory: ./deployment
         run: terraform plan
+        
+      - name: Terraform Apply
+        id: apply
+        working-directory: ./deployment
+        run: terraform apply
 

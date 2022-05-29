@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "lambda_bucket" {
-  bucket = rps-lambda-api-s3
+  bucket = "rps-lambda-api-s3"
 }
 
 resource "aws_s3_bucket_acl" "lambda_bucket_acl" {

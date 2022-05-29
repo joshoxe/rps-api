@@ -28,7 +28,7 @@ resource "aws_lambda_function" "lambda_function" {
   role = aws_iam_role.lambda_exec.arn
 }
 
-resource "aws_cloudwatch_log_group" "hello_world" {
+resource "aws_cloudwatch_log_group" "log_group" {
   name = "/aws/lambda/${aws_lambda_function.lambda_function.function_name}"
 
   retention_in_days = var.log_retention_days

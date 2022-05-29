@@ -35,5 +35,5 @@ module "lambda_function" {
   output_path   = "${path.root}/../src.zip"
   bucket        = aws_s3_bucket.lambda_bucket.id
   key           = "src.zip"
-  handler       = "rps.handler"
+  handler       = "handler.rps"
 }

@@ -26,3 +26,9 @@ variable "handler" {
   description = "The function to run on entry"
   type        = string
 }
+
+variable "log_retention_days" {
+  description = "How long to retain function logs"
+  type        = number
+  default     = 30
+}

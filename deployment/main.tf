@@ -26,3 +26,14 @@ resource "aws_s3_bucket_acl" "lambda_bucket_acl" {
   bucket = aws_s3_bucket.lambda_bucket.id
   acl    = "private"
 }
+
+module "lambda_function" {
+  source = "./modules/lambda"
+
+  function_name = "rps"
+  source_path   = "${path.module}/src"
+  output_path   = "${path.module}/src.zip"
+  bucket        = aws_s3_bucket.lambda_bucket.id
+  key           = "src.zip"
+  handler       = "rps.handler"
+}

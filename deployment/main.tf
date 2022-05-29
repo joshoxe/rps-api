@@ -19,8 +19,13 @@ provider "aws" {
   region = var.region
 }
 
+resource "random_pet" "lambda_bucket_name" {
+  prefix = "rps"
+  length = 4
+}
+
 resource "aws_s3_bucket" "lambda_bucket" {
-  bucket = "rps-lambda-api-s3"
+  bucket = random_pet.lambda_bucket_name.id
 }
 
 resource "aws_s3_bucket_acl" "lambda_bucket_acl" {

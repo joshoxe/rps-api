@@ -1,0 +1,46 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+      - uses: actions/checkout@v3
+      
+      - name: Terraform IaC
+      - uses: hashicorp/setup-terraform@v2
+        env:
+          AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-west-2
+      
+      - name: Terraform Init
+        id: init
+        working-directory: ./deployment
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        working-directory: ./deployment
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        working-directory: ./deployment
+        run: terraform plan -no-color
+        continue-on-error: true
+        
+      - run: echo ${{ steps.plan.outputs.stdout }}
+      - run: echo ${{ steps.plan.outputs.stderr }}
+      - run: echo ${{ steps.plan.outputs.exitcode }}
+

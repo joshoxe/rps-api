@@ -31,8 +31,8 @@ module "lambda_function" {
   source = "./modules/lambda"
 
   function_name = "rps"
-  source_path   = "${path.root}../src"
-  output_path   = "${path.root}../src.zip"
+  source_path   = "${path.root}/../src"
+  output_path   = "${path.root}/../src.zip"
   bucket        = aws_s3_bucket.lambda_bucket.id
   key           = "src.zip"
   handler       = "rps.handler"

@@ -10,8 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
-  region  = var.region
+  region = var.region
 }
 
 resource "random_pet" "lambda_bucket_name" {

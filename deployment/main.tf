@@ -7,9 +7,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket = aws_s3_bucket.lambda_bucket.name
+    bucket = "state-lock-rps-s3"
     key    = "tf.tfstate"
-    region = var.region
+    region = "eu-west-2"
   }
 
   required_version = "~> 1.0"

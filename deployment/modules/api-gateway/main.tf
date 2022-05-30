@@ -10,7 +10,7 @@ resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {
   auto_deploy = true
 
   access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api_gw.arn
+    destination_arn = aws_cloudwatch_log_group.api_logs.arn
 
     format = jsonencode({
       requestId               = "$context.requestId"

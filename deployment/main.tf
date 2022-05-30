@@ -48,8 +48,8 @@ module "lambda_api_gateway" {
   source = "./modules/api-gateway"
 
   gateway_name      = "lambda_gateway"
-  lambda_invoke_arn = lambda_function.invoke_arn
+  lambda_invoke_arn = module.lambda_function.invoke_arn
   request_method    = "POST"
   request_path      = "/api"
-  function_name     = lambda_function.function_name
+  function_name     = module.lambda_function.function_name
 }

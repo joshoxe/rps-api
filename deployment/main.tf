@@ -48,8 +48,8 @@ module "vpc" {
 }
 
 resource "aws_db_subnet_group" "db_subnet" {
-  name       = "education"
-  subnet_ids = module.vpc.private_subnets
+  name       = "db_subnet"
+  subnet_ids = module.vpc.intra_subnets
 }
 
 module "lambda_function" {

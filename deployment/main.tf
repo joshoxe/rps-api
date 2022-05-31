@@ -33,6 +33,23 @@ resource "aws_s3_bucket_acl" "lambda_bucket_acl" {
   acl    = "private"
 }
 
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "2.77.0"
+
+  name                 = "priv_vpc"
+  cidr                 = "10.0.0.0/16"
+  azs                  = data.aws_availability_zones.available.names
+  private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+}
+
+resource "aws_db_subnet_group" "db_subnet" {
+  name       = "education"
+  subnet_ids = module.vpc.private_subnets
+}
+
 module "lambda_function" {
   source = "./modules/lambda"
 
@@ -53,3 +70,4 @@ module "lambda_api_gateway" {
   request_path      = "/api"
   function_name     = module.lambda_function.function_name
 }
+

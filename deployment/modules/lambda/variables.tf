@@ -32,3 +32,13 @@ variable "log_retention_days" {
   type        = number
   default     = 30
 }
+
+variable "subnet_ids" {
+  description = "IDs of the VPC subnet"
+  type        = set(string)
+}
+
+variable "security_group_ids" {
+  description = "IDs of the security groups for the VPC"
+  type        = set(string)
+}

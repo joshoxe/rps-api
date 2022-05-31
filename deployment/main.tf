@@ -42,7 +42,7 @@ module "vpc" {
   name                 = "priv_vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  intra_subnets        = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
@@ -55,12 +55,14 @@ resource "aws_db_subnet_group" "db_subnet" {
 module "lambda_function" {
   source = "./modules/lambda"
 
-  function_name = "rps"
-  source_path   = "${path.root}/../src"
-  output_path   = "${path.root}/../src.zip"
-  bucket        = aws_s3_bucket.lambda_bucket.id
-  key           = "src.zip"
-  handler       = "handler.rps"
+  function_name      = "rps"
+  source_path        = "${path.root}/../src"
+  output_path        = "${path.root}/../src.zip"
+  bucket             = aws_s3_bucket.lambda_bucket.id
+  key                = "src.zip"
+  handler            = "handler.rps"
+  subnet_ids         = module.vpc.intra_subnets
+  security_group_ids = [module.vpc.default_security_group_id]
 }
 
 module "lambda_api_gateway" {

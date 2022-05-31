@@ -33,6 +33,8 @@ resource "aws_s3_bucket_acl" "lambda_bucket_acl" {
   acl    = "private"
 }
 
+data "aws_availability_zones" "available" {}
+
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.77.0"

@@ -76,7 +76,7 @@ module "lambda_api_gateway" {
 }
 
 resource "aws_security_group" "rds" {
-  name   = "rps_rds"
+  name   = "rps-rds"
   vpc_id = module.vpc.vpc_id
 
   ingress {
@@ -99,7 +99,7 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_db_parameter_group" "rds_params" {
-  name   = "rps_rds"
+  name   = "rps-rds"
   family = "postgres13"
 
   parameter {

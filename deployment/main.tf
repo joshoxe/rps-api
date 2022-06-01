@@ -75,3 +75,48 @@ module "lambda_api_gateway" {
   function_name     = module.lambda_function.function_name
 }
 
+resource "aws_security_group" "rds" {
+  name   = "rps_rds"
+  vpc_id = module.vpc.vpc_id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "rps_rds"
+  }
+}
+
+resource "aws_db_parameter_group" "rds_params" {
+  name   = "rps_rds"
+  family = "postgres13"
+
+  parameter {
+    name  = "log_connections"
+    value = "1"
+  }
+}
+
+resource "aws_db_instance" "rds_db" {
+  identifier             = "rds_rps_db"
+  instance_class         = "db.t3.micro"
+  allocated_storage      = 5
+  engine                 = "postgres"
+  engine_version         = "13.1"
+  username               = var.db_username
+  password               = var.db_password
+  db_subnet_group_name   = aws_db_subnet_group.db_subnet.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  parameter_group_name   = aws_db_parameter_group.rds_params.name
+}

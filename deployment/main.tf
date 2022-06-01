@@ -109,7 +109,7 @@ resource "aws_db_parameter_group" "rds_params" {
 }
 
 resource "aws_db_instance" "rds_db" {
-  identifier             = "rds_rps_db"
+  identifier             = "rds-rps-db"
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "postgres"

@@ -100,7 +100,7 @@ resource "aws_security_group" "rds" {
 
 resource "aws_db_parameter_group" "rds_params" {
   name   = "rps-rds"
-  family = "postgres13"
+  family = "postgres14"
 
   parameter {
     name  = "log_connections"

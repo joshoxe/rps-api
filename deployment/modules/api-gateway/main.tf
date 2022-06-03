@@ -104,24 +104,13 @@ resource "aws_lambda_permission" "api_disconnect_gw" {
   source_arn = "${aws_apigatewayv2_api.lambda_gateway.execution_arn}/*/*"
 }
 
-resource "aws_api_gateway_account" "gw_account_settings" {
-  cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
-}
-
-resource "aws_iam_role" "cloudwatch" {
-  name = "api_gateway_cloudwatch_global"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid    = "",
-        Effect = "Allow",
-        Principal = {
-          Service = "apigateway.amazonaws.com"
-        },
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
+resource "aws_api_gateway_method_settings" "gw_settings" {
+  rest_api_id = aws_apigatewayv2_api.lambda_gateway.id
+  stage_name  = aws_apigatewayv2_stage.lambda_gateway_stage.stage_name
+  method_path = "*/*"
+  settings {
+    logging_level      = "INFO"
+    data_trace_enabled = true
+    metrics_enabled    = true
+  }
 }

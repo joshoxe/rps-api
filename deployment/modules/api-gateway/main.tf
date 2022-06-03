@@ -61,7 +61,7 @@ resource "aws_apigatewayv2_route" "lambda_disconnect_route" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
   route_key = "$disconnect"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda_disconnect_integratio.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_disconnect_integration.id}"
 }
 
 resource "aws_apigatewayv2_route" "lambda_play_route" {

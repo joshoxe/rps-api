@@ -60,7 +60,7 @@ module "lambda_connect_function" {
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "onConnect.connect"
+  handler            = "onConnect/onConnect.connect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
 }
@@ -73,7 +73,7 @@ module "lambda_disconnect_function" {
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "onDiconnect.disconnect"
+  handler            = "onDisconnect/onDiconnect.disconnect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
 }

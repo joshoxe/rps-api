@@ -54,21 +54,21 @@ resource "aws_apigatewayv2_route" "lambda_connect_route" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
   route_key = "$connect"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_connect_integration.id}"
 }
 
 resource "aws_apigatewayv2_route" "lambda_disconnect_route" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
   route_key = "$disconnect"
-  target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_disconnect_integratio.id}"
 }
 
 resource "aws_apigatewayv2_route" "lambda_play_route" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
   route_key = var.route_key
-  target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_play_integration.id}"
 }
 
 resource "aws_cloudwatch_log_group" "api_logs" {

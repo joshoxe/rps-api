@@ -52,7 +52,33 @@ resource "aws_db_subnet_group" "db_subnet" {
   subnet_ids = module.vpc.intra_subnets
 }
 
-module "lambda_function" {
+module "lambda_connect_function" {
+  source = "./modules/lambda"
+
+  function_name      = "rps"
+  source_path        = "${path.root}/../src"
+  output_path        = "${path.root}/../src.zip"
+  bucket             = aws_s3_bucket.lambda_bucket.id
+  key                = "src.zip"
+  handler            = "handler.connect"
+  subnet_ids         = module.vpc.intra_subnets
+  security_group_ids = [module.vpc.default_security_group_id]
+}
+
+module "lambda_disconnect_function" {
+  source = "./modules/lambda"
+
+  function_name      = "rps"
+  source_path        = "${path.root}/../src"
+  output_path        = "${path.root}/../src.zip"
+  bucket             = aws_s3_bucket.lambda_bucket.id
+  key                = "src.zip"
+  handler            = "handler.disconnect"
+  subnet_ids         = module.vpc.intra_subnets
+  security_group_ids = [module.vpc.default_security_group_id]
+}
+
+module "lambda_play_function" {
   source = "./modules/lambda"
 
   function_name      = "rps"
@@ -70,8 +96,7 @@ module "lambda_api_gateway" {
 
   gateway_name      = "lambda_gateway"
   lambda_invoke_arn = module.lambda_function.invoke_arn
-  request_method    = "POST"
-  request_path      = "/api"
+  route_key         = "rps"
   function_name     = module.lambda_function.function_name
 }
 

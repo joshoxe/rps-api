@@ -29,18 +29,45 @@ resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {
   }
 }
 
-resource "aws_apigatewayv2_integration" "lambda_function" {
+resource "aws_apigatewayv2_integration" "lambda_connect_integration" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  integration_uri    = var.lambda_invoke_arn
-  integration_type   = "AWS_PROXY"
-  integration_method = "POST"
+  integration_uri  = var.lambda_connect_invoke_arn
+  integration_type = "AWS"
 }
 
-resource "aws_apigatewayv2_route" "lambda_route" {
+resource "aws_apigatewayv2_integration" "lambda_disconnect_integration" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  route_key = "${var.request_method} ${var.request_path}"
+  integration_uri  = var.lambda_disconnect_invoke_arn
+  integration_type = "AWS"
+}
+
+resource "aws_apigatewayv2_integration" "lambda_play_integration" {
+  api_id = aws_apigatewayv2_api.lambda_gateway.id
+
+  integration_uri  = var.lambda_play_invoke_arn
+  integration_type = "AWS"
+}
+
+resource "aws_apigatewayv2_route" "lambda_connect_route" {
+  api_id = aws_apigatewayv2_api.lambda_gateway.id
+
+  route_key = "$connect"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
+}
+
+resource "aws_apigatewayv2_route" "lambda_disconnect_route" {
+  api_id = aws_apigatewayv2_api.lambda_gateway.id
+
+  route_key = "$disconnect"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
+}
+
+resource "aws_apigatewayv2_route" "lambda_play_route" {
+  api_id = aws_apigatewayv2_api.lambda_gateway.id
+
+  route_key = var.route_key
   target    = "integrations/${aws_apigatewayv2_integration.lambda_function.id}"
 }
 

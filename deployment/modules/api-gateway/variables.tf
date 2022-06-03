@@ -8,13 +8,8 @@ variable "lambda_invoke_arn" {
   type        = string
 }
 
-variable "request_method" {
-  description = "The HTTP method to accept for this gateway"
-  type        = string
-}
-
-variable "request_path" {
-  description = "The path to match for the gateway. Example: '/hello' to invoke the lambda on requests to /hello"
+variable "route_key" {
+  description = "The route key for the websocket gateway"
   type        = string
 }
 

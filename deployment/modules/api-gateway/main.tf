@@ -14,22 +14,25 @@ resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {
 resource "aws_apigatewayv2_integration" "lambda_connect_integration" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  integration_uri  = var.lambda_connect_invoke_arn
-  integration_type = "AWS"
+  integration_uri    = var.lambda_connect_invoke_arn
+  integration_type   = "AWS"
+  integration_method = "POST"
 }
 
 resource "aws_apigatewayv2_integration" "lambda_disconnect_integration" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  integration_uri  = var.lambda_disconnect_invoke_arn
-  integration_type = "AWS"
+  integration_uri    = var.lambda_disconnect_invoke_arn
+  integration_type   = "AWS"
+  integration_method = "POST"
 }
 
 resource "aws_apigatewayv2_integration" "lambda_play_integration" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  integration_uri  = var.lambda_play_invoke_arn
-  integration_type = "AWS"
+  integration_uri    = var.lambda_play_invoke_arn
+  integration_type   = "AWS"
+  integration_method = "POST"
 }
 
 resource "aws_apigatewayv2_route" "lambda_connect_route" {

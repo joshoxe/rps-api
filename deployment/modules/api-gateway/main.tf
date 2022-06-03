@@ -7,7 +7,7 @@ resource "aws_apigatewayv2_api" "lambda_gateway" {
 resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  name        = "${var.gateway_name}_stage"
+  name        = "${var.gateway_name}_live"
   auto_deploy = true
 
   access_log_settings {

@@ -1,6 +1,7 @@
 resource "aws_apigatewayv2_api" "lambda_gateway" {
-  name          = var.gateway_name
-  protocol_type = "HTTP"
+  name                       = var.gateway_name
+  protocol_type              = "WEBSOCKET"
+  route_selection_expression = "$request.body.action"
 }
 
 resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {

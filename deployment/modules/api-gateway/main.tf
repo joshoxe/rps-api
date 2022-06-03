@@ -77,10 +77,28 @@ resource "aws_cloudwatch_log_group" "api_logs" {
   retention_in_days = var.log_retention_days
 }
 
-resource "aws_lambda_permission" "api_gw" {
+resource "aws_lambda_permission" "api_play_gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = var.function_name
+  function_name = var.function_play_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.lambda_gateway.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "api_connect_gw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = var.function_connect_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.lambda_gateway.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "api_disconnect_gw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = var.function_disconnect_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.lambda_gateway.execution_arn}/*/*"

@@ -55,7 +55,7 @@ resource "aws_db_subnet_group" "db_subnet" {
 module "lambda_connect_function" {
   source = "./modules/lambda"
 
-  function_name      = "rps"
+  function_name      = "rps-connect"
   source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
@@ -68,7 +68,7 @@ module "lambda_connect_function" {
 module "lambda_disconnect_function" {
   source = "./modules/lambda"
 
-  function_name      = "rps"
+  function_name      = "rps-disconnect"
   source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
@@ -81,7 +81,7 @@ module "lambda_disconnect_function" {
 module "lambda_play_function" {
   source = "./modules/lambda"
 
-  function_name      = "rps"
+  function_name      = "rps-play"
   source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
@@ -94,10 +94,14 @@ module "lambda_play_function" {
 module "lambda_api_gateway" {
   source = "./modules/api-gateway"
 
-  gateway_name      = "lambda_gateway"
-  lambda_invoke_arn = module.lambda_function.invoke_arn
-  route_key         = "rps"
-  function_name     = module.lambda_function.function_name
+  gateway_name                 = "lambda_gateway"
+  lambda_play_invoke_arn       = module.lambda_play_function.invoke_arn
+  lambda_connect_invoke_arn    = module.lambda_connect_function.invoke_arn
+  lambda_disconnect_invoke_arn = module.lambda_disconnect_function.invoke_arn
+  route_key                    = "rps"
+  function_play_name           = module.lambda_play_function.function_name
+  function_connect_name        = module.lambda_connect_function.function_name
+  function_disconnect_name     = module.lambda_disconnect_function.function_name
 }
 
 resource "aws_security_group" "rds" {

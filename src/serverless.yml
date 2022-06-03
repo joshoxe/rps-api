@@ -19,9 +19,9 @@ functions:
   rps:
     handler: handler.rps
   connect:
-    handler: onConnect.connect
+    handler: onconnect/onConnect.connect
   disconnect:
-    handler: onDisconnect.disconnect
+    handler: ondisconnect/onDisconnect.disconnect
     # The `events` block defines how to trigger the handler.helloWorld code
     events:
       - http:

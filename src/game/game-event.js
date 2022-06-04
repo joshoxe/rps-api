@@ -10,6 +10,6 @@ class GameEvent {
       throw "Argument out of range. Must be 0 or 1.";
     }
 
-    this.value = value;
+    this.player = value;
   }
 }

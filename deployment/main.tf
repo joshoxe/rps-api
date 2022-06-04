@@ -63,6 +63,11 @@ module "lambda_connect_function" {
   handler            = "./onconnect/handler.connect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_disconnect_function" {

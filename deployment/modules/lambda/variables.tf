@@ -42,3 +42,31 @@ variable "security_group_ids" {
   description = "IDs of the security groups for the VPC"
   type        = set(string)
 }
+
+variable "db_user" {
+  description = "Username of the postgres DB instance"
+  type        = string
+}
+
+variable "db_host" {
+  description = "Hostname of the postgres DB instance"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Password for the postgres DB instance"
+  type        = string
+}
+
+variable "db" {
+  description = "Name of the database to access"
+  type        = string
+}
+
+variable "db_port" {
+  description = "Port of the postgres DB"
+  type        = number
+}
+
+
+

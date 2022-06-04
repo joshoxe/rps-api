@@ -81,6 +81,11 @@ module "lambda_disconnect_function" {
   handler            = "./ondisconnect/handler.disconnect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_play_function" {
@@ -94,6 +99,11 @@ module "lambda_play_function" {
   handler            = "./play/handler.rps"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_api_gateway" {

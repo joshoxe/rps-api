@@ -52,15 +52,41 @@ resource "aws_db_subnet_group" "db_subnet" {
   subnet_ids = module.vpc.intra_subnets
 }
 
-module "lambda_function" {
+module "lambda_connect_function" {
   source = "./modules/lambda"
 
-  function_name      = "rps"
+  function_name      = "rps-connect"
   source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "handler.rps"
+  handler            = "./onconnect/handler.connect"
+  subnet_ids         = module.vpc.intra_subnets
+  security_group_ids = [module.vpc.default_security_group_id]
+}
+
+module "lambda_disconnect_function" {
+  source = "./modules/lambda"
+
+  function_name      = "rps-disconnect"
+  source_path        = "${path.root}/../src"
+  output_path        = "${path.root}/../src.zip"
+  bucket             = aws_s3_bucket.lambda_bucket.id
+  key                = "src.zip"
+  handler            = "./ondisconnect/handler.disconnect"
+  subnet_ids         = module.vpc.intra_subnets
+  security_group_ids = [module.vpc.default_security_group_id]
+}
+
+module "lambda_play_function" {
+  source = "./modules/lambda"
+
+  function_name      = "rps-play"
+  source_path        = "${path.root}/../src"
+  output_path        = "${path.root}/../src.zip"
+  bucket             = aws_s3_bucket.lambda_bucket.id
+  key                = "src.zip"
+  handler            = "./play/handler.rps"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
 }
@@ -68,11 +94,14 @@ module "lambda_function" {
 module "lambda_api_gateway" {
   source = "./modules/api-gateway"
 
-  gateway_name      = "lambda_gateway"
-  lambda_invoke_arn = module.lambda_function.invoke_arn
-  request_method    = "POST"
-  request_path      = "/api"
-  function_name     = module.lambda_function.function_name
+  gateway_name                 = "lambda_gateway"
+  lambda_play_invoke_arn       = module.lambda_play_function.invoke_arn
+  lambda_connect_invoke_arn    = module.lambda_connect_function.invoke_arn
+  lambda_disconnect_invoke_arn = module.lambda_disconnect_function.invoke_arn
+  route_key                    = "rps"
+  function_play_name           = module.lambda_play_function.function_name
+  function_connect_name        = module.lambda_connect_function.function_name
+  function_disconnect_name     = module.lambda_disconnect_function.function_name
 }
 
 resource "aws_security_group" "rds" {
@@ -119,4 +148,5 @@ resource "aws_db_instance" "rds_db" {
   db_subnet_group_name   = aws_db_subnet_group.db_subnet.name
   vpc_security_group_ids = [aws_security_group.rds.id]
   parameter_group_name   = aws_db_parameter_group.rds_params.name
+  skip_final_snapshot    = true
 }

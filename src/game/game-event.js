@@ -1,6 +1,6 @@
 class GameEvent {
-  constructor(type, value, player) {
-    this.type = type;
+  constructor(action, value, player) {
+    this.action = action;
     this.value = value;
     this.player = player;
   }

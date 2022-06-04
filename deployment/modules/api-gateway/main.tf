@@ -7,8 +7,10 @@ resource "aws_apigatewayv2_api" "lambda_gateway" {
 resource "aws_apigatewayv2_stage" "lambda_gateway_stage" {
   api_id = aws_apigatewayv2_api.lambda_gateway.id
 
-  name        = "${var.gateway_name}_live"
-  auto_deploy = true
+  name                   = "${var.gateway_name}_live"
+  auto_deploy            = true
+  throttling_burst_limit = 1000
+  throttling_rate_limit  = 500
 }
 
 resource "aws_apigatewayv2_integration" "lambda_connect_integration" {

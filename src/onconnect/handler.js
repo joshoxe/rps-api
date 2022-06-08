@@ -9,11 +9,15 @@ module.exports.connect = async (event, context, callback) => {
       roomId: null,
     };
   } catch (err) {
-    callback(null, {
-      statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' }, // Required for CORS support to work
-      body: JSON.stringify(event),
-    });
+    console.error(JSON.stringify(err));
+    callback(
+      {
+        statusCode: 500,
+        headers: { 'Access-Control-Allow-Origin': '*' }, // Required for CORS support to work
+        body: JSON.stringify(event),
+      },
+      null
+    );
   }
 
   console.log(`successfully created player: ${JSON.stringify(newPlayer)}`);
@@ -36,12 +40,15 @@ module.exports.connect = async (event, context, callback) => {
     })
     .catch(error => {
       console.error(JSON.stringify(error));
-      callback(null, {
-        statusCode: 500,
-        headers: this.headers,
-        body: JSON.stringify({
-          message: error,
-        }),
-      });
+      callback(
+        {
+          statusCode: 500,
+          headers: this.headers,
+          body: JSON.stringify({
+            message: error,
+          }),
+        },
+        null
+      );
     });
 };

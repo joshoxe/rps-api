@@ -1,4 +1,4 @@
-const { PlayerRepository } = require('infra/db/player-repository');
+const PlayerRepository = require('../infra/db/player-repository');
 
 module.exports.connect = async (event, context, callback) => {
   const playerRepository = new PlayerRepository();

@@ -1,4 +1,4 @@
-const { Repository } = require('./repository');
+const Repository = require('./repository');
 
 module.exports = class PlayerRepository extends Repository {
   constructor() {

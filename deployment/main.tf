@@ -57,7 +57,7 @@ module "lambda_connect_function" {
 
   function_name      = "rps-connect"
   source_path        = "${path.root}/../src/onconnect/"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../connect.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "handler.connect"
@@ -75,7 +75,7 @@ module "lambda_disconnect_function" {
 
   function_name      = "rps-disconnect"
   source_path        = "${path.root}/../src/ondisconnect/"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../disconnect.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "handler.disconnect"
@@ -93,7 +93,7 @@ module "lambda_play_function" {
 
   function_name      = "rps-play"
   source_path        = "${path.root}/../src/play/"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../play.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "handler.rps"

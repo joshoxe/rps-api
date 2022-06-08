@@ -1,0 +1,37 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: rps-api
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .git/**
+    - .vscode/**
+    - venv/**
+
+frameworkVersion: '3'
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+# The `functions` block defines what code to deploy
+functions:
+  rps:
+    handler: .src/play/handler.rps
+    # The `events` block defines how to trigger the handler.helloWorld code
+    events:
+      - websocket: rps
+  connectHandler:
+    handler: .src/onconnect/handler.connect
+    events:
+      - websocket: $connect
+  disconnectHandler:
+    handler: .src/ondisconnect/handler.disconnect
+    events:
+      - websocket: $disconnect

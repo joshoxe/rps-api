@@ -2,8 +2,9 @@ const PlayerRepository = require('../infra/db/player-repository');
 
 module.exports.connect = async (event, context, callback) => {
   const playerRepository = new PlayerRepository();
+  const newPlayer = {};
   try {
-    const newPlayer = {
+    newPlayer = {
       connectionId: event.requestContext.connectionId,
       roomId: null,
     };

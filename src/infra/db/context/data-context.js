@@ -10,8 +10,10 @@ module.exports = class DataContext {
 
   async query(query) {
     console.log('connecting to database..');
-    await this.client.connect();
-    console.log('connected');
+    this.client
+      .connect()
+      .then(() => console.log('connected'))
+      .catch(err => console.error('error', JSON.stringify(err)));
 
     console.log('querying database..');
     const result = await this.client.query(query);

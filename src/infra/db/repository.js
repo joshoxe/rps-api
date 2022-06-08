@@ -1,6 +1,6 @@
-import { DataContext } from './context/data-context';
+const DataContext = require('./context/data-context');
 
-export class Repository {
+modules.exports = class Repository {
   /**
    * Generic abstract CRUD repository for database operations.
    */

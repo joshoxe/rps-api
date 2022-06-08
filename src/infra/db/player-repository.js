@@ -1,6 +1,6 @@
 const { Repository } = require('./repository');
 
-export class PlayerRepository extends Repository {
+modules.exports = class PlayerRepository extends Repository {
   constructor() {
     super();
     this.table = 'players';

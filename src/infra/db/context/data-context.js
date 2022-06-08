@@ -1,6 +1,6 @@
-import { Client } from "pg";
+const Client = require("pg");
 
-export class DataContext {
+modules.exports = class DataContext {
   /**
    * Create a new DataContext, using environment variables to connect to a PostgreSQL database.
    */

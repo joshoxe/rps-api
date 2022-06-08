@@ -17,9 +17,6 @@ resource "aws_s3_object" "lambda_zip_upload" {
 resource "aws_lambda_function" "lambda_function" {
   function_name = var.function_name
 
-  s3_bucket = var.bucket
-  s3_key    = aws_s3_object.lambda_zip_upload.key
-
   runtime = "nodejs12.x"
   handler = var.handler
 

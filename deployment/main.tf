@@ -56,11 +56,11 @@ module "lambda_connect_function" {
   source = "./modules/lambda"
 
   function_name      = "rps-connect"
-  source_path        = "${path.root}../.serverless/rps-api.zip"
+  source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "./src/onconnect/handler.connect"
+  handler            = "./onconnect/handler.connect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
   db_user            = var.db_username
@@ -74,11 +74,11 @@ module "lambda_disconnect_function" {
   source = "./modules/lambda"
 
   function_name      = "rps-disconnect"
-  source_path        = "${path.root}../.serverless/rps-api.zip"
+  source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "./src/ondisconnect/handler.disconnect"
+  handler            = "./ondisconnect/handler.disconnect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
   db_user            = var.db_username
@@ -92,11 +92,11 @@ module "lambda_play_function" {
   source = "./modules/lambda"
 
   function_name      = "rps-play"
-  source_path        = "${path.root}../.serverless/rps-api.zip"
+  source_path        = "${path.root}/../src"
   output_path        = "${path.root}/../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
-  handler            = "./src/play/handler.rps"
+  handler            = "./play/handler.rps"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
   db_user            = var.db_username

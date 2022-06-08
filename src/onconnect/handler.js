@@ -2,23 +2,11 @@ const PlayerRepository = require('../infra/db/player-repository');
 
 module.exports.connect = async (event, context, callback) => {
   const playerRepository = new PlayerRepository();
-  const newPlayer = {};
-  try {
-    newPlayer = {
-      connectionId: event.requestContext.connectionId,
-      roomId: null,
-    };
-  } catch (err) {
-    console.error(JSON.stringify(err));
-    callback(
-      {
-        statusCode: 500,
-        headers: { 'Access-Control-Allow-Origin': '*' }, // Required for CORS support to work
-        body: JSON.stringify(event),
-      },
-      null
-    );
-  }
+  console.log(JSON.stringify(event));
+  newPlayer = {
+    connectionId: event.requestContext.connectionId,
+    roomId: null,
+  };
 
   console.log(`successfully created player: ${JSON.stringify(newPlayer)}`);
 

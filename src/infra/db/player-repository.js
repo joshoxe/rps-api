@@ -16,7 +16,9 @@ module.exports = class PlayerRepository extends Repository {
       values: [this.table, player.connectionId, player.roomId],
     };
 
-    return this.dataContext.query(query);
+    const res = await this.dataContext.query(query);
+    console.log(JSON.stringify(res));
+    return res;
   }
 
   async addRoomToPlayer(roomId, playerId) {

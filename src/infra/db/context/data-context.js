@@ -1,4 +1,4 @@
-const Client = require("pg");
+const Client = require('pg');
 
 modules.exports = class DataContext {
   /**
@@ -12,13 +12,13 @@ modules.exports = class DataContext {
     await this.client.connect();
     this.client
       .query(query)
-      .then(result => {
-          await this.client.end();
-          return result.rows[0]
-        })
-      .catch(error => {
+      .then(async result => {
+        await this.client.end();
+        return result.rows[0];
+      })
+      .catch(async error => {
         await this.client.end();
         throw error.stack;
       });
   }
-}
+};

@@ -16,7 +16,7 @@ module.exports.connect = async (event, context, callback) => {
 
   playerRepository
     .add(newPlayer)
-    .then(res => {
+    .then(() => {
       console.log(`successfully added player to db with result`);
       callback(null, {
         statusCode: 200,

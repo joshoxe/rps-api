@@ -10,15 +10,20 @@ module.exports = class DataContext {
 
   async query(query) {
     await this.client.connect();
-    this.client
-      .query(query)
-      .then(async result => {
-        await this.client.end();
-        return result.rows[0];
-      })
-      .catch(async error => {
-        await this.client.end();
-        throw error.stack;
-      });
+
+    const result = await this.client.query(query);
+    console.log(JSON.stringify(result));
+    return result;
+
+    // this.client
+    //   .query(query)
+    //   .then(async result => {
+    //     await this.client.end();
+    //     return result.rows[0];
+    //   })
+    //   .catch(async error => {
+    //     await this.client.end();
+    //     throw error.stack;
+    //   });
   }
 };

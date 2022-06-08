@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "API backend for RPS game",
   "main": "./onconnect/handler.js",
-  "type": "module",
   "scripts": {
     "test": "jest"
   },

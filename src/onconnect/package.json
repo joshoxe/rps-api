@@ -1,8 +1,8 @@
 {
   "name": "rps-api",
   "version": "1.0.0",
-  "description": "API backend for RPS game",
-  "main": "./onconnect/handler.js",
+  "description": "connection lambda for RPS API",
+  "main": "handler.js",
   "scripts": {
     "test": "jest"
   },

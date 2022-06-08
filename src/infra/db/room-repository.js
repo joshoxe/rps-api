@@ -1,6 +1,6 @@
 const Repository = require('./repository');
 
-modules.exports = class RoomRepository extends Repository {
+module.exports = class RoomRepository extends Repository {
   constructor() {
     super();
     this.table = 'rooms';

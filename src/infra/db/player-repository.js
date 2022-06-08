@@ -1,6 +1,6 @@
 const { Repository } = require('./repository');
 
-modules.exports = class PlayerRepository extends Repository {
+module.exports = class PlayerRepository extends Repository {
   constructor() {
     super();
     this.table = 'players';
@@ -27,4 +27,4 @@ modules.exports = class PlayerRepository extends Repository {
 
     return this.dataContext.query(query);
   }
-}
+};

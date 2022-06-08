@@ -47,7 +47,8 @@ modules.exports = class Repository {
   async deleteRange(ids) {
     const results = [];
     for (const id of ids) {
-      results.push(await this.delete(id));
+      const result = await this.delete(id);
+      results.push(result);
     }
 
     return results;

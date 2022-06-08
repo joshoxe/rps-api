@@ -16,6 +16,8 @@ module.exports.connect = async (event, context, callback) => {
     });
   }
 
+  console.log(`successfully created player: ${newPlayer}`);
+
   this.headers = {
     'Access-Control-Allow-Origin': '*', // Required for CORS support to work
   };
@@ -23,6 +25,7 @@ module.exports.connect = async (event, context, callback) => {
   playerRepository
     .add(newPlayer)
     .then(() => {
+      console.log(`successfully added player to db`);
       callback(null, {
         statusCode: 200,
         headers: this.headers,
@@ -32,6 +35,7 @@ module.exports.connect = async (event, context, callback) => {
       });
     })
     .catch(error => {
+      console.log('did not add player to db');
       callback(null, {
         statusCode: 500,
         headers: this.headers,

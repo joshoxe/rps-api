@@ -16,7 +16,12 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      
+
+      - name: serverless package
+        uses: serverless/github-action@v3.1
+        with:
+          args: package
+
       - name: Terraform IaC
         uses: hashicorp/setup-terraform@v2
       

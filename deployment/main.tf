@@ -59,7 +59,7 @@ module "lambda_connect_function" {
   source_path        = "${path.root}/../src/onconnect/"
   output_path        = "${path.root}/../connect.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
-  key                = "src.zip"
+  key                = "connect.zip"
   handler            = "handler.connect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
@@ -77,7 +77,7 @@ module "lambda_disconnect_function" {
   source_path        = "${path.root}/../src/ondisconnect/"
   output_path        = "${path.root}/../disconnect.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
-  key                = "src.zip"
+  key                = "disconnect.zip"
   handler            = "handler.disconnect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
@@ -95,7 +95,7 @@ module "lambda_play_function" {
   source_path        = "${path.root}/../src/play/"
   output_path        = "${path.root}/../play.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
-  key                = "src.zip"
+  key                = "play.zip"
   handler            = "handler.rps"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]

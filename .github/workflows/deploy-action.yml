@@ -63,7 +63,11 @@ jobs:
           TF_VAR_db_port: ${{ secrets.DB_PORT }}
           TF_VAR_db: ${{ secrets.DB_NAME }}
           AWS_DEFAULT_REGION: eu-west-2
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - run: npm ci
         id: apply
         working-directory: ./deployment
-        run: terraform apply -auto-approve
+      - run: terraform apply -auto-approve
 

@@ -31,6 +31,16 @@ resource "aws_lambda_function" "lambda_function" {
     subnet_ids         = var.subnet_ids
     security_group_ids = var.security_group_ids
   }
+
+  environment {
+    variables = {
+      PGUSER     = var.db_user
+      PGHOST     = var.db_host
+      PGPASSWORD = var.db_password
+      PGDATABASE = var.db
+      PGPORT     = var.db_port
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "log_group" {

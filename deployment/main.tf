@@ -57,12 +57,17 @@ module "lambda_connect_function" {
 
   function_name      = "rps-connect"
   source_path        = "${path.root}/../src"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "./onconnect/handler.connect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_disconnect_function" {
@@ -70,12 +75,17 @@ module "lambda_disconnect_function" {
 
   function_name      = "rps-disconnect"
   source_path        = "${path.root}/../src"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "./ondisconnect/handler.disconnect"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_play_function" {
@@ -83,12 +93,17 @@ module "lambda_play_function" {
 
   function_name      = "rps-play"
   source_path        = "${path.root}/../src"
-  output_path        = "${path.root}/../src.zip"
+  output_path        = "${path.root}/../../src.zip"
   bucket             = aws_s3_bucket.lambda_bucket.id
   key                = "src.zip"
   handler            = "./play/handler.rps"
   subnet_ids         = module.vpc.intra_subnets
   security_group_ids = [module.vpc.default_security_group_id]
+  db_user            = var.db_username
+  db_password        = var.db_password
+  db_host            = var.db_host
+  db_port            = var.db_port
+  db                 = var.db
 }
 
 module "lambda_api_gateway" {

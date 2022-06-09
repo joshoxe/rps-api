@@ -1,0 +1,22 @@
+{
+  "name": "rps-api",
+  "version": "1.0.0",
+  "description": "lambdas for RPS API",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshoxe/rps-api.git"
+  },
+  "author": "joshoxe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshoxe/rps-api/issues"
+  },
+  "homepage": "https://github.com/joshoxe/rps-api#readme",
+  "dependencies": {
+    "pg": "^8.7.3"
+  }
+}

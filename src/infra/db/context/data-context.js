@@ -10,27 +10,22 @@ module.exports = class DataContext {
 
   async query(query) {
     console.log('connecting to database..');
-    this.client
-      .connect()
-      .then(() => console.log('connected'))
-      .catch(err => console.error('error', JSON.stringify(err)));
+    try {
+      await this.client.connect();
 
-    console.log('querying database..');
-    const result = await this.client.query(query);
-
-    console.log('query complete');
-    console.log(JSON.stringify(result));
-    return result;
-
-    // this.client
-    //   .query(query)
-    //   .then(async result => {
-    //     await this.client.end();
-    //     return result.rows[0];
-    //   })
-    //   .catch(async error => {
-    //     await this.client.end();
-    //     throw error.stack;
-    //   });
+      this.client
+        .query(query)
+        .then(async result => {
+          await this.client.end();
+          return result.rows[0];
+        })
+        .catch(async error => {
+          await this.client.end();
+          throw error.stack;
+        });
+    } catch (err) {
+      console.error(err);
+      return;
+    }
   }
 };
